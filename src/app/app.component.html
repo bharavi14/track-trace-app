@@ -359,11 +359,13 @@
     </table>
     <span><button (click) = "downloadPdf()">Download Pdf</button></span>  
   </div>
-
+  <div></div>
   <div *ngIf = "lststatuses?.length == 0">
     Invalid Consignment Number, No Results Found......!
   </div>
-
+  <div *ngIf = "downloadedfilename && lststatuses?.length > 0">
+    <a href="http://localhost/sampson-php/pdf/{{downloadedfilename}}" target ="_blank">Click Here To Download Pdf</a>
+  </div>  
   <!-- <div *ngIf = "pdfFilename?.length > 0">
     <div *ngFor = "let pdfData of pdfFilename">{{pdfData.filename}} Downloaded successfully!</div>
   </div>  --> 

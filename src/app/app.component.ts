@@ -20,6 +20,7 @@ export class AppComponent {
   lststatuses:Statuses[];
   cno:string;
   pdfFilename:string;
+  downloadedfilename:string = '';
 
   getStatus(val: string) {
 
@@ -31,6 +32,7 @@ export class AppComponent {
       data=>
       {
         this.lststatuses = data;
+        this.downloadedfilename = '';
       }
     );
   }
@@ -41,10 +43,11 @@ export class AppComponent {
     this._getStatusApi.downloadPdf(params)
     .subscribe
     (
-      
-        data => console.log(data),
-        error => console.error(error)
-        //this.pdfFilename = data;
+      data =>
+      {
+        this.downloadedfilename = data.filename;
+        console.log(data);
+      }  
       
     )
   }

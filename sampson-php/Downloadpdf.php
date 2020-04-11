@@ -18,28 +18,32 @@
 			$url = 'https://api.sampsonexpress.com.au/v3.2/customers/'.$_REQUEST['clientID'].'/pod/'.$_REQUEST['cno'];
 			$response = $this->curlcall->executeCurl($url);
 			//var_dump($response->response->filename);exit;
-			header("Content-Type: application/octet-stream"); 
+			//header("Content-Type: application/octet-stream"); 
   
 			$fileContent = $response->response->fileContent; 
 			$filename = $response->response->filename;
 
 			$binary = base64_decode($fileContent);
-			header('Content-Type: bitmap; charset=utf-8');
+			//header('Content-Type: bitmap; charset=utf-8');
 			$fileContent = fopen('pdf/'.$filename, 'wb');
 			fwrite($fileContent, $binary);
 			fclose($fileContent);
  
-		    $file = ("pdf/".$filename);
+		    /*$file = ("pdf/".$filename);
 		    $filetype = filetype($file);
 		    $filename = basename($file);
-		    header("Content-type:application/pdf");
+		    header("Content-type:application/json");
 		    header ("Content-Length: ".filesize($file));
 		    header ("Content-Disposition: attachment; filename=".$filename);
-		    header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+		    header('Access-Control-Allow-Origin: *');
 		
-		    readfile($file);
-
-		    //echo json_encode(array('filename' => $response->response->filename));
+		    readfile($file);*/
+		    header('Access-Control-Allow-Origin: *');
+			header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+			header('Access-Control-Max-Age: 1000');
+			header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+			
+		    echo json_encode(array('filename' => $response->response->filename));
 		}
 
 	}
